@@ -18,11 +18,6 @@ class GlassDoorModelProvider(output: FabricPackOutput) : FabricModelProvider(out
     }
 
     override fun generateItemModels(itemModelGenerators: ItemModelGenerators) {
-        for (door in GlassDoors.doorBlocks) {
-            itemModelGenerators.generateFlatItem(door.item, ModelTemplates.FLAT_ITEM)
-        }
-        for (door in GlassDoors.trapdoorBlocks) {
-            itemModelGenerators.generateFlatItem(door.item, ModelTemplates.FLAT_ITEM)
-        }
+        // item models are registered by `createDoor` and `createTrapdoor` automatically
     }
 }
