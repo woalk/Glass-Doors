@@ -46,13 +46,13 @@ object GlassDoors {
             val glassDoor = { p: BlockBehaviour.Properties -> DoorBlock(vanillaDoor.type(), p) }
             val vanillaId = BuiltInRegistries.BLOCK.getKey(vanillaDoor).path
             val itemGenerator = ::DoubleHighBlockItem
-            doors.add(PreWrapper(vanillaDoor, glassDoor, properties, "glass_${vanillaId}", itemGenerator))
+            doors.add(PreWrapper(vanillaDoor, glassDoor, properties, insertGlassIntoId(vanillaId), itemGenerator))
         }
         for (vanillaTrapdoor in VANILLA_TRAPDOORS) {
             val properties = BlockBehaviour.Properties.ofFullCopy(vanillaTrapdoor)
-            val glassTrapdoor = { p: BlockBehaviour.Properties -> TrapDoorBlock(vanillaTrapdoor.getType(), p) }
+            val glassTrapdoor = { p: BlockBehaviour.Properties -> TrapDoorBlock(vanillaTrapdoor.type, p) }
             val vanillaId = BuiltInRegistries.BLOCK.getKey(vanillaTrapdoor).path
-            trapdoors.add(PreWrapper(vanillaTrapdoor, glassTrapdoor, properties, "glass_${vanillaId}"))
+            trapdoors.add(PreWrapper(vanillaTrapdoor, glassTrapdoor, properties, insertGlassIntoId(vanillaId)))
         }
 
         for (w in doors) {
@@ -61,6 +61,10 @@ object GlassDoors {
         for (w in trapdoors) {
             trapdoorBlocks.add(register(w))
         }
+    }
+
+    private fun insertGlassIntoId(vanillaId: String): String = Regex("(_(trap)?door)$").replace(vanillaId) {
+        "_glass" + it.groups.first()?.value
     }
 
     private fun <T: Block> register(w: PreWrapper<T>): Wrapper<T> {
