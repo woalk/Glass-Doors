@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
 	id("net.fabricmc.fabric-loom")
-	`maven-publish`
 	id("org.jetbrains.kotlin.jvm") version "2.4.21"
+	id("com.modrinth.minotaur") version "2.+"
 }
 
 repositories {
@@ -79,19 +79,13 @@ tasks.jar {
 	}
 }
 
-// configure the maven publication
-publishing {
-	publications {
-		register<MavenPublication>("mavenJava") {
-			from(components["java"])
-		}
-	}
-
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
+modrinth {
+	token.set(System.getenv("MODRINTH_TOKEN"))
+	projectId.set("woalk-glass-doors")
+	versionType.set("release")
+	uploadFile.set(tasks.jar)
+	dependencies {
+		required.project("fabric-api")
+		required.project("fabric-language-kotlin")
 	}
 }
