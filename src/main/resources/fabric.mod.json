@@ -1,0 +1,46 @@
+{
+	"schemaVersion": 1,
+	"id": "glass_doors",
+	"version": "${version}",
+	"name": "Glass Doors",
+	"description": "Simple craftable glass doors",
+	"authors": [
+		"woalk"
+	],
+	"contact": {
+	},
+	"license": "GPL-3.0",
+	"icon": "assets/glass_doors/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "com.woalk.mods.glass_doors.GlassDoorsMod",
+				"adapter": "kotlin"
+			}
+		],
+		"client": [
+			{
+				"value": "com.woalk.mods.glass_doors.client.GlassDoorsClientMod",
+				"adapter": "kotlin"
+			}
+		],
+		"fabric-datagen": [
+			{
+				"value": "com.woalk.mods.glass_doors.client.datagen.GlassDoorsDataGenerator",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"glass_doors.mixins.json"
+	],
+	"accessWidener": "glass_doors.accesswidener",
+	"depends": {
+		"fabricloader": ">=${loader_version}",
+		"minecraft": "${minecraft_version}",
+		"java": ">=25",
+		"fabric-api": "*",
+		"fabric-language-kotlin": ">=${kotlin_loader_version}"
+	}
+}
