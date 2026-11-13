@@ -79,6 +79,6 @@ object GlassDoors {
     }
 
     internal fun registerAll() {
-        GlassDoorsMod.LOGGER.info("Registered ${doorBlocks.size} doors and ${trapdoorBlocks.size} trapdoors.")
+        GlassDoorsMod.LOGGER.debug("Registered ${doorBlocks.size} doors and ${trapdoorBlocks.size} trapdoors.")
     }
 }

@@ -1,5 +1,6 @@
 package com.woalk.mods.glass_doors
 
+import com.woalk.mods.glass_doors.blocks.GlassDoorCreativeTab
 import com.woalk.mods.glass_doors.blocks.GlassDoors
 import net.fabricmc.api.ModInitializer
 import net.minecraft.resources.Identifier
@@ -11,6 +12,7 @@ object GlassDoorsMod : ModInitializer {
 
 	override fun onInitialize() {
 		GlassDoors.registerAll()
+		GlassDoorCreativeTab.registerAll()
 	}
 
 	fun id(path: String) = Identifier.fromNamespaceAndPath(MOD_ID, path)
