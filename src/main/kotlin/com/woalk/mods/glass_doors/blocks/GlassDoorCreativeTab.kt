@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceKey
 object GlassDoorCreativeTab {
     val key = ResourceKey.create(BuiltInRegistries.CREATIVE_MODE_TAB.key(), GlassDoorsMod.id("tab"))
     val tab = FabricCreativeModeTab.builder()
-        .icon { GlassDoors.doorBlocks.first().block.asItem().defaultInstance }
+        .icon { GlassDoors.paleOakDoor.asItem().defaultInstance }
         .title(Component.translatable("creativeTab.glass_doors"))
         .displayItems { _, output ->
             for (door in GlassDoors.doorBlocks) {

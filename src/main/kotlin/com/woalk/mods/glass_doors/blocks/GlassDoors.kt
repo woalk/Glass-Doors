@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.DoorBlock
 import net.minecraft.world.level.block.TrapDoorBlock
 import net.minecraft.world.level.block.state.BlockBehaviour
+import net.minecraft.world.level.block.state.properties.BlockSetType
 
 object GlassDoors {
     data class PreWrapper<T : Block>(
@@ -37,6 +38,8 @@ object GlassDoors {
     val doorBlocks = ArrayList<Wrapper<DoorBlock>>(VANILLA_DOORS.size)
     val trapdoorBlocks = ArrayList<Wrapper<TrapDoorBlock>>(VANILLA_TRAPDOORS.size)
 
+    lateinit var paleOakDoor: Block
+
     init {
         val doors = ArrayList<PreWrapper<DoorBlock>>(VANILLA_DOORS.size)
         val trapdoors = ArrayList<PreWrapper<TrapDoorBlock>>(VANILLA_TRAPDOORS.size)
@@ -56,7 +59,12 @@ object GlassDoors {
         }
 
         for (w in doors) {
-            doorBlocks.add(register(w))
+            val doorBlock = register(w)
+            doorBlocks.add(doorBlock)
+
+            if (w.vanillaBlock.type() == BlockSetType.PALE_OAK) {
+                paleOakDoor = doorBlock.block
+            }
         }
         for (w in trapdoors) {
             trapdoorBlocks.add(register(w))
