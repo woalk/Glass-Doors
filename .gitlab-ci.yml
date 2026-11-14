@@ -14,8 +14,22 @@ cache:
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
+datagen:
+  stage: build
+  before_script:
+    - apt-get update && apt-get install -y xvfb libxrender1 libxtst6 libxi6
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+  script:
+    - ./gradlew runDatagen
+  artifacts:
+    paths:
+      - src/main/generated/
+    expire_in: 10 minutes
+
 build:
   stage: build
+  needs:
+    - datagen
   script:
     - ./gradlew build
   artifacts:
@@ -28,6 +42,7 @@ modrinth:
   stage: publish
   needs:
     - build
+    - datagen
   script:
     - ./gradlew modrinth
   rules:
